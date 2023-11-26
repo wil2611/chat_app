@@ -1,4 +1,4 @@
-name: chat_app
+name: warriors_of_fate
 
 description: A new Flutter project.
 
@@ -43,6 +43,7 @@ dependencies:
   firebase_database: ^10.3.2
   curved_nav_bar: ^0.0.2
   curved_navigation_bar: ^1.0.3
+  geolocator: ^10.1.0
 
 
 dev_dependencies:
@@ -59,6 +60,12 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
+  adaptive_icon_background: "assets/images/logo.png"
+  
 # The following section is specific to Flutter.
 flutter:
 
@@ -68,8 +75,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+      - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

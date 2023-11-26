@@ -1,7 +1,8 @@
-import 'package:chat_app/ui/controllers/singup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
+
+import '../../controllers/singup_controller.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -17,7 +18,7 @@ class _FirebaseSignUpState extends State<SignUp> {
   final controllerFirstName = TextEditingController();
   final controllerLastName = TextEditingController();
   final controllerBirthDate = TextEditingController();
-  final ControllerUsername = TextEditingController();
+  final controllerUsername = TextEditingController();
   SingupController signupController = SingupController();
 
   Future<void> _selectDate(BuildContext context) async {
@@ -124,7 +125,7 @@ class _FirebaseSignUpState extends State<SignUp> {
                     ),
                     _buildTextField(
                       labelText: "Username",
-                      controller: ControllerUsername,
+                      controller: controllerUsername,
                       keyboardType: TextInputType.text,
                       icon: Icons.person_outline,
                     ),
@@ -158,7 +159,7 @@ class _FirebaseSignUpState extends State<SignUp> {
                               password: controllerPassword.text,
                               firstName: controllerFirstName.text,
                               lastName: controllerLastName.text,
-                              username: ControllerUsername.text,
+                              username: controllerUsername.text,
                               birthDate: controllerBirthDate.text,
                             );
 
@@ -177,7 +178,7 @@ class _FirebaseSignUpState extends State<SignUp> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        backgroundColor: Color(0xFF260B01),
+                        backgroundColor: const Color(0xFF260B01),
                         side: const BorderSide(color: Color(0xFFD9A76A)),
                       ),
                       child: const Row(

@@ -1,0 +1,4 @@
+ubicar los archivos en esta carpeta respectivamente
+build.gradle to android/app
+google-service.json to android/app
+configuration.dart to lib/config/ <-- crear esta carpeta

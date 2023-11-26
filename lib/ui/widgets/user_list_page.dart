@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loggy/loggy.dart';
 
 import '../../data/model/app_user.dart';
 import '../controllers/authentication_controller.dart';
@@ -32,16 +30,7 @@ class _UserListPageState extends State<UserListPage> {
   @override
   void dispose() {
     // Cierra los streams del userController
-    userController.stop();
     super.dispose();
-  }
-
-  _logout() async {
-    try {
-      await authenticationController.logout();
-    } catch (e) {
-      logError(e);
-    }
   }
 
   Widget _item(AppUser element) {
@@ -49,7 +38,7 @@ class _UserListPageState extends State<UserListPage> {
     // Muestra el correo con un ícono
     return Card(
       margin: const EdgeInsets.all(4.0),
-      color: Color(0xFF260B01), // Color de fondo para cada tarjeta
+      color: const Color(0xFF260B01), // Color de fondo para cada tarjeta
       child: ListTile(
         onTap: () {
           Get.to(() => const ChatPage(), arguments: [
@@ -63,7 +52,7 @@ class _UserListPageState extends State<UserListPage> {
         ),
         title: Text(
           element.email,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );
@@ -74,7 +63,7 @@ class _UserListPageState extends State<UserListPage> {
     // La lista de usuarios se obtiene del userController
     return GetX<UserController>(builder: (controller) {
       if (userController.users.isEmpty) {
-        return Center(
+        return const Center(
           child: Text(
             'No users',
             style: TextStyle(color: Colors.white),

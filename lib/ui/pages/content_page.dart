@@ -1,6 +1,3 @@
-import 'package:chat_app/ui/widgets/firestore_page.dart';
-import 'package:chat_app/ui/widgets/perfil_page.dart';
-import 'package:chat_app/ui/widgets/user_list_page.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +5,9 @@ import 'package:loggy/loggy.dart';
 
 import '../controllers/authentication_controller.dart';
 import '../controllers/perfil_controller.dart';
+import '../widgets/firestore_page.dart';
+import '../widgets/perfil_page.dart';
+import '../widgets/user_list_page.dart';
 
 class ContentPage extends StatefulWidget {
   const ContentPage({super.key});
@@ -59,14 +59,14 @@ class _ContentPageState extends State<ContentPage> {
         child: _widgets.elementAt(_selectIndex),
       ),
       bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Color(0xFF111111),
-          buttonBackgroundColor: Color.fromARGB(255, 255, 255, 255),
+          backgroundColor: const Color(0xFF111111),
+          buttonBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
           color: const Color(0xFF111111),
           height: 50,
           index: _selectIndex,
           items: <Widget>[
             Icon(
-              Icons.home,
+              Icons.sports_martial_arts,
               size: 35,
               color: _selectIndex == 0 ? Colors.black : Colors.white,
             ),
@@ -76,7 +76,7 @@ class _ContentPageState extends State<ContentPage> {
               color: _selectIndex == 1 ? Colors.black : Colors.white,
             ),
             Icon(
-              Icons.person,
+              Icons.assignment_ind,
               size: 35,
               color: _selectIndex == 2 ? Colors.black : Colors.white,
             ),

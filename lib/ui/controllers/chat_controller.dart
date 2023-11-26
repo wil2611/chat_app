@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:chat_app/ui/controllers/authentication_controller.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 
 import '../../data/model/message.dart';
+import 'authentication_controller.dart';
 
 class ChatController extends GetxController {
   // Lista de los mensajes, está lista es observada por el UI
@@ -21,34 +21,33 @@ class ChatController extends GetxController {
   late StreamSubscription<DatabaseEvent> updateEntryStreamSubscription;
   // método en el que nos suscribimos  a los dos streams
   void subscribeToUpdated(uidUser) {
-  messages.clear();
-  
-  // Obtén la instancia del AuthenticationController
-  AuthenticationController authenticationController = Get.find();
+    messages.clear();
 
-  String chatKey = getChatKey(authenticationController.getUid(), uidUser);
+    // Obtén la instancia del AuthenticationController
+    AuthenticationController authenticationController = Get.find();
 
-  // Escucha nuevas entradas
-  newEntryStreamSubscription = databaseReference
-      .child('msg')
-      .child(chatKey)
-      .onChildAdded
-      .listen((event) => _onEntryAdded(event));
+    String chatKey = getChatKey(authenticationController.getUid(), uidUser);
 
-  // Escucha actualizaciones de entradas
-  updateEntryStreamSubscription = databaseReference
-      .child('msg')
-      .child(chatKey)
-      .onChildChanged
-      .listen((event) => _onEntryChanged(event));
-}
+    // Escucha nuevas entradas
+    newEntryStreamSubscription = databaseReference
+        .child('msg')
+        .child(chatKey)
+        .onChildAdded
+        .listen((event) => _onEntryAdded(event));
 
+    // Escucha actualizaciones de entradas
+    updateEntryStreamSubscription = databaseReference
+        .child('msg')
+        .child(chatKey)
+        .onChildChanged
+        .listen((event) => _onEntryChanged(event));
+  }
 
   // método en el que cerramos los streams
- void unsubscribe() {
-  newEntryStreamSubscription.cancel();
-  updateEntryStreamSubscription.cancel();
-}
+  void unsubscribe() {
+    newEntryStreamSubscription.cancel();
+    updateEntryStreamSubscription.cancel();
+  }
 
   // este método es llamado cuando se tiene una nueva entrada
   _onEntryAdded(DatabaseEvent event) {
@@ -72,7 +71,7 @@ class ChatController extends GetxController {
   String getChatKey(uidUser1, uidUser2) {
     List<String> uidList = [uidUser1, uidUser2];
     uidList.sort();
-    return uidList[0] + "--" + uidList[1];
+    return "${uidList[0]}--${uidList[1]}";
   }
 
   // creamos la "tabla" de mensajes entre dos usuarios
@@ -92,22 +91,19 @@ class ChatController extends GetxController {
 
   // Este método es usado para agregar una nueva entrada en la "tabla" entre los
   // dos usuarios
- Future<void> sendChat(remoteUserUid, msg) async {
-  AuthenticationController authenticationController = Get.find();
-  String key = getChatKey(authenticationController.getUid(), remoteUserUid);
-  String senderUid = authenticationController.getUid();
-  try {
-    await databaseReference
-        .child('msg')
-        .child(key)
-        .push()
-        .set({'senderUid': senderUid, 'msg': msg});
-  } catch (error) {
-    logError(error);
-    return Future.error(error);
+  Future<void> sendChat(remoteUserUid, msg) async {
+    AuthenticationController authenticationController = Get.find();
+    String key = getChatKey(authenticationController.getUid(), remoteUserUid);
+    String senderUid = authenticationController.getUid();
+    try {
+      await databaseReference
+          .child('msg')
+          .child(key)
+          .push()
+          .set({'senderUid': senderUid, 'msg': msg});
+    } catch (error) {
+      logError(error);
+      return Future.error(error);
+    }
   }
-}
-
-
- 
 }

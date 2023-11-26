@@ -1,8 +1,8 @@
-
-import 'package:chat_app/ui/pages/content_page.dart';
-import 'package:chat_app/ui/pages/login/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'pages/content_page.dart';
+import 'pages/login/login.dart';
 
 class FirebaseCentral extends StatelessWidget {
   const FirebaseCentral({Key? key}) : super(key: key);

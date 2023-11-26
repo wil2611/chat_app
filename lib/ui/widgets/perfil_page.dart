@@ -82,7 +82,7 @@ class UserProfileViewPage extends StatelessWidget {
   Widget _buildInfoCard(IconData icon, String label, String value) {
     return Card(
       elevation: 3.0,
-      margin: EdgeInsets.symmetric(vertical: 10.0),
+      margin: const EdgeInsets.symmetric(vertical: 10.0),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -94,7 +94,7 @@ class UserProfileViewPage extends StatelessWidget {
                   icon,
                   color: Colors.grey[800],
                 ),
-                SizedBox(width: 8.0),
+                const SizedBox(width: 8.0),
                 Text(
                   '$label:',
                   style: TextStyle(
@@ -105,7 +105,7 @@ class UserProfileViewPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Text(
               value,
               style: TextStyle(fontSize: 15.0, color: Colors.grey[800]),

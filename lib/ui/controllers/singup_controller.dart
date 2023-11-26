@@ -1,10 +1,11 @@
 // quiero crear un controlador para el formulario de registro la informacion la quiero guardar en una base de datos
 
-import 'package:chat_app/ui/controllers/user_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
+
+import 'user_controller.dart';
 
 class SingupController extends GetxController {
   final DatabaseReference _databaseRef = FirebaseDatabase.instance.ref();

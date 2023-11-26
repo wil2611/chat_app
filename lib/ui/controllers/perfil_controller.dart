@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UserProfileController extends GetxController {
@@ -8,6 +9,7 @@ class UserProfileController extends GetxController {
 
   Rx<User?> user = Rx<User?>(null);
   Rx<Map<String, dynamic>?> userProfileData = Rx<Map<String, dynamic>?>(null);
+  Rx<Map<String, dynamic>?> nameFinder = Rx<Map<String, dynamic>?>(null);
 
   @override
   void onInit() {
@@ -37,7 +39,26 @@ class UserProfileController extends GetxController {
 
       userProfileData.value = userProfile;
     } catch (error) {
-      print('Error al obtener información de perfil: $error');
+      debugPrint('Error al obtener información de perfil: $error');
+    }
+  }
+
+  Future<String> obtenerNombre(String uid) async {
+// Tu método aquí
+    try {
+      DataSnapshot dataSnapshot =
+          await _databaseRef.child('users').child(uid).get();
+      Map<dynamic, dynamic> userProfileMap =
+          dataSnapshot.value as Map<dynamic, dynamic>;
+      Map<String, dynamic> userProfile =
+          userProfileMap.map((key, value) => MapEntry(key.toString(), value));
+
+      nameFinder.value = userProfile;
+
+      return nameFinder.value!['username'];
+    } catch (error) {
+      debugPrint('Error al obtener información de perfil: $error');
+      return 'Error';
     }
   }
 }

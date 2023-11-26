@@ -47,8 +47,8 @@ class _ChatPageState extends State<ChatPage> {
     return Card(
       margin: const EdgeInsets.all(8.0),
       color: uid == element.senderUid
-          ? Color.fromARGB(255, 99, 82, 62)
-          : Color.fromARGB(255, 46, 57, 63),
+          ? const Color.fromARGB(255, 99, 82, 62)
+          : const Color.fromARGB(255, 46, 57, 63),
       child: ListTile(
         title: Text(
           element.msg,
@@ -103,6 +103,7 @@ class _ChatPageState extends State<ChatPage> {
             icon: const Icon(Icons.send),
             color: Colors.white,
             onPressed: () {
+              if (_controller.text.isEmpty) return;
               _sendMsg(_controller.text);
               _controller.clear();
             },
@@ -170,7 +171,7 @@ class _ChatPageState extends State<ChatPage> {
         backgroundColor: const Color(0xFF0F0417),
         title: Text(
           "Chat with $remoteEmail",
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
       body: Container(

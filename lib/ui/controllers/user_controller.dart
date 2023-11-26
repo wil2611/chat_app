@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:chat_app/ui/controllers/authentication_controller.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 import '../../data/model/app_user.dart';
+import 'authentication_controller.dart';
 
 class UserController extends GetxController {
   var _users = <AppUser>[].obs;
@@ -13,7 +13,7 @@ class UserController extends GetxController {
   late StreamSubscription<DatabaseEvent> newEntryStreamSubscription;
 
   late StreamSubscription<DatabaseEvent> updateEntryStreamSubscription;
-  
+
   String? selectedUserUid;
 
   void setSelectedUserUid(String uid) {

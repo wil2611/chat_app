@@ -86,7 +86,7 @@ class LoginPage extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        backgroundColor: Color(0xFF260B01),
+                        backgroundColor: const Color(0xFF260B01),
                         side: const BorderSide(color: Color(0xFFD9A76A)),
                       ),
                       child: const Row(
@@ -124,7 +124,7 @@ class LoginPage extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        backgroundColor: Color(0xFF260B01),
+                        backgroundColor: const Color(0xFF260B01),
                         side: const BorderSide(color: Color(0xFFD9A76A)),
                       ),
                       child: const Row(

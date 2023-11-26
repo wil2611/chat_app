@@ -1,7 +1,8 @@
-import 'package:chat_app/ui/controllers/user_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
+
+import 'user_controller.dart';
 
 class AuthenticationController extends GetxController {
   final databaseRef = FirebaseDatabase.instance.ref();
@@ -56,5 +57,4 @@ class AuthenticationController extends GetxController {
     String uid = FirebaseAuth.instance.currentUser!.uid;
     return uid;
   }
-  
 }

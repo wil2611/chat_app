@@ -1,4 +1,4 @@
-package com.example.chat_app
+package com.example.warriors_of_fate
 
 import io.flutter.embedding.android.FlutterActivity
 
