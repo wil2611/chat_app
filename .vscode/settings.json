@@ -1,4 +1,5 @@
 {
     "C_Cpp.errorSquiggles": "disabled",
-    "cmake.sourceDirectory": "C:/Users/wilaz/Downloads/f_firebase_202210-main/chat_app/linux/flutter"
+    "cmake.sourceDirectory": "C:/Users/wilaz/Downloads/f_firebase_202210-main/chat_app/linux/flutter",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
