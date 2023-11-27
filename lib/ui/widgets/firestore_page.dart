@@ -29,9 +29,20 @@ class _FireStorePageState extends State<FireStorePage> {
   AuthenticationController authenticationController = Get.find();
   @override
   void initState() {
+    ubicar();
     firestoreController.suscribeUpdates();
     userController.start();
     super.initState();
+  }
+
+  void ubicar() {
+    var online = true;
+    locationController.getLocation();
+    var latitud = locationController.userLocation.value.latitude;
+    var longitud = locationController.userLocation.value.longitude;
+    debugPrint("latitud: $latitud longitud: $longitud online: $online");
+    ubicontroler.ubi(perfilController.user.value!.uid, latitud.toString(),
+        longitud.toString(), online.toString());
   }
 
   @override
@@ -80,6 +91,8 @@ class _FireStorePageState extends State<FireStorePage> {
       return ListView.builder(
         itemCount: userController.users.length,
         itemBuilder: (context, index) {
+          perfilController
+              .obtenerLocation(authenticationController.getUid().toString());
           var element = userController.users[index];
           var location = ubicontroler.onlines[index];
           for (var i = 0; i < ubicontroler.onlines.length; i++) {
@@ -88,7 +101,7 @@ class _FireStorePageState extends State<FireStorePage> {
             }
           }
           debugPrint(
-              "uid${authenticationController.getUid()} se encuentra en ${perfilController.locationCheck.value!['latitud']},${perfilController.locationCheck.value!['longitud']}");
+              "uid${authenticationController.getUid()} se encuentra en ${perfilController.locationCheck.value!['latitude']},${perfilController.locationCheck.value!['longitud']}");
           return FutureBuilder<String>(
             future: perfilController.obtenerNombre(element.uid),
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
@@ -132,7 +145,7 @@ class _FireStorePageState extends State<FireStorePage> {
     lon1 = _degreesToRadians(lon1);
     lat2 = _degreesToRadians(lat2);
     lon2 = _degreesToRadians(lon2);
-
+    debugPrint("lat1: $lat1 lon1: $lon1 lat2: $lat2 lon2: $lon2");
     // Diferencias de latitud y longitud
     double dlat = lat2 - lat1;
     double dlon = lon2 - lon1;
@@ -144,8 +157,8 @@ class _FireStorePageState extends State<FireStorePage> {
     double distance = R * c; // Distancia en kilómetros
 
     // Convertir la distancia a metros
-    double distanceMeters = distance * 1000.0;
-
+    double distanceMeters = distance;
+    debugPrint("distancia: $distanceMeters");
     return distanceMeters;
   }
 

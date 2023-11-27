@@ -52,9 +52,9 @@ class _ContentPageState extends State<ContentPage> with WidgetsBindingObserver {
 
   void ubicar() {
     var online = true;
-    locationController.getLocation();
     var latitud = locationController.userLocation.value.latitude;
     var longitud = locationController.userLocation.value.longitude;
+    debugPrint("holaaaaaaaaaaa");
     debugPrint("latitud: $latitud longitud: $longitud online: $online");
     ubiController.ubi(perfilController.user.value!.uid, latitud.toString(),
         longitud.toString(), online.toString());
@@ -87,6 +87,7 @@ class _ContentPageState extends State<ContentPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    ubicar();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF0F0417),
