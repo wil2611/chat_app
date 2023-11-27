@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'user_controller.dart';
@@ -42,6 +43,7 @@ class AuthenticationController extends GetxController {
 
   logout() async {
     try {
+      debugPrint("logout");
       await FirebaseAuth.instance.signOut();
     } catch (e) {
       return Future.error("Logout error");
@@ -54,7 +56,16 @@ class AuthenticationController extends GetxController {
   }
 
   String getUid() {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
-    return uid;
+    User? currentUser = FirebaseAuth.instance.currentUser;
+
+    // Verificar si currentUser es nulo
+    if (currentUser != null) {
+      String uid = currentUser.uid;
+      return uid;
+    } else {
+      // Manejar el caso en el que currentUser es nulo
+      // Puedes devolver un valor predeterminado o lanzar un error, según tus necesidades.
+      return 'Usuario no autenticado';
+    }
   }
 }

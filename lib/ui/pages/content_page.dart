@@ -2,12 +2,14 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
+import '../controllers/location_controller.dart';
 
 import '../controllers/authentication_controller.dart';
 import '../controllers/perfil_controller.dart';
+import '../controllers/ubi_controller.dart';
 import '../widgets/firestore_page.dart';
+import '../widgets/inic_page.dart';
 import '../widgets/perfil_page.dart';
-import '../widgets/user_list_page.dart';
 
 class ContentPage extends StatefulWidget {
   const ContentPage({super.key});
@@ -17,23 +19,69 @@ class ContentPage extends StatefulWidget {
   _ContentPageState createState() => _ContentPageState();
 }
 
-class _ContentPageState extends State<ContentPage> {
-  int _selectIndex = 0;
+class _ContentPageState extends State<ContentPage> with WidgetsBindingObserver {
+  int _selectIndex = 1;
   AuthenticationController authenticationController = Get.find();
   UserProfileController userProfileController =
       Get.put(UserProfileController());
 
+  final LocationController locationController = Get.find();
+  final UserProfileController perfilController = Get.find();
+  final UbiController ubiController = Get.find();
+
   static final List<Widget> _widgets = <Widget>[
     const FireStorePage(),
-    const UserListPage(),
+    const MyHomePage(),
     UserProfileViewPage(),
   ];
 
   _logout() async {
     try {
+      var online = false;
+      var latitud = 0;
+      var longitud = 0;
+      debugPrint("latitud: $latitud longitud: $longitud online: $online");
+      ubiController.ubi(authenticationController.getUid(), latitud.toString(),
+          longitud.toString(), online.toString());
+      ubiController.stop();
       await authenticationController.logout();
     } catch (e) {
       logError(e);
+    }
+  }
+
+  void ubicar() {
+    var online = true;
+    locationController.getLocation();
+    var latitud = locationController.userLocation.value.latitude;
+    var longitud = locationController.userLocation.value.longitude;
+    debugPrint("latitud: $latitud longitud: $longitud online: $online");
+    ubiController.ubi(perfilController.user.value!.uid, latitud.toString(),
+        longitud.toString(), online.toString());
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    if (ubiController.started == false) {
+      ubiController.start();
+    }
+    perfilController.obtenerLocation(authenticationController.getUid());
+    ubiController.obtenerDatosUsuarios();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+    ubiController.stop();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      ubicar();
     }
   }
 
@@ -66,12 +114,12 @@ class _ContentPageState extends State<ContentPage> {
           index: _selectIndex,
           items: <Widget>[
             Icon(
-              Icons.sports_martial_arts,
+              Icons.chat,
               size: 35,
               color: _selectIndex == 0 ? Colors.black : Colors.white,
             ),
             Icon(
-              Icons.chat,
+              Icons.sports_martial_arts,
               size: 35,
               color: _selectIndex == 1 ? Colors.black : Colors.white,
             ),
