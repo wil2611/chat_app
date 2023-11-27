@@ -80,6 +80,7 @@ class LoginPage extends StatelessWidget {
                         final form = _formKey.currentState;
                         form!.save();
                         login(controllerEmail.text, controllerPassword.text);
+                        //ubicar();
                       },
                       style: OutlinedButton.styleFrom(
                         minimumSize: const Size(150, 60),

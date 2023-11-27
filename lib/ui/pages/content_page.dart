@@ -2,9 +2,11 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
+import '../controllers/location_controller.dart';
 
 import '../controllers/authentication_controller.dart';
 import '../controllers/perfil_controller.dart';
+import '../controllers/ubi_controller.dart';
 import '../widgets/firestore_page.dart';
 import '../widgets/perfil_page.dart';
 import '../widgets/user_list_page.dart';
@@ -23,6 +25,10 @@ class _ContentPageState extends State<ContentPage> {
   UserProfileController userProfileController =
       Get.put(UserProfileController());
 
+  final LocationController locationController = Get.find();
+  final UserProfileController perfilController = Get.find();
+  final UbiController ubiController = Get.find();
+
   static final List<Widget> _widgets = <Widget>[
     const FireStorePage(),
     const UserListPage(),
@@ -37,8 +43,19 @@ class _ContentPageState extends State<ContentPage> {
     }
   }
 
+  void ubicar() {
+    var online = true;
+    locationController.getLocation();
+    var latitud = locationController.userLocation.value.latitude;
+    var longitud = locationController.userLocation.value.longitude;
+    debugPrint("latitud: $latitud longitud: $longitud online: $online");
+    ubiController.ubi(perfilController.user.value!.uid, latitud.toString(),
+        longitud.toString(), online.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
+    ubicar();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF0F0417),

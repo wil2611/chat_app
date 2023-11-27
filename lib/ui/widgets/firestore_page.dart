@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:warriors_of_fate/ui/controllers/location_controller.dart';
 import '../controllers/perfil_controller.dart';
 
 import '../controllers/chat_controller.dart';
@@ -17,6 +18,7 @@ class FireStorePage extends StatefulWidget {
 class _FireStorePageState extends State<FireStorePage> {
   final FirestoreController firestoreController = Get.find();
   final ChatController chatController = Get.find();
+  LocationController locationController = Get.find();
   UserController userController = Get.find();
   UserProfileController perfilController = Get.find();
 
