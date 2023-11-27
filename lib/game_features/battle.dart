@@ -844,6 +844,10 @@ class Battle extends FlameGame {
   void render(Canvas canvas) {
     super.render(canvas);
     final screenHeight = canvasSize[0];
-    dialog.render(canvas, texto, Vector2(10, screenHeight - 80));
+    dialog.render(
+      canvas,
+      texto,
+      Vector2(10, screenHeight - 50),
+    );
   }
 }

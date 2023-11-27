@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
     requestPermission();
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Firebase demo',
+        title: 'Warriors of Fate',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

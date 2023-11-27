@@ -20,7 +20,7 @@ class ContentPage extends StatefulWidget {
 }
 
 class _ContentPageState extends State<ContentPage> with WidgetsBindingObserver {
-  int _selectIndex = 0;
+  int _selectIndex = 1;
   AuthenticationController authenticationController = Get.find();
   UserProfileController userProfileController =
       Get.put(UserProfileController());
