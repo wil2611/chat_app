@@ -38,7 +38,10 @@ class _GamePageState extends State<GamePage> {
     double ancho = alto * 33 / 70;
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Fight Warriors!")),
+      appBar: AppBar(
+          title: const Text("Fight Warriors!"),
+          centerTitle: true,
+          backgroundColor: const Color(0xFF0F0417)),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
