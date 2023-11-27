@@ -32,8 +32,19 @@ class UbiController extends GetxController {
 
   _onEntryChanged(DatabaseEvent event) {
     final json = event.snapshot.value as Map<dynamic, dynamic>;
-    _onlines[_onlines.indexWhere((ubi) => ubi.key == event.snapshot.key)] =
-        Ubi.fromJson(event.snapshot, json);
+
+    // Busca el índice del elemento en _onlines que tiene la misma clave que el snapshot
+    int index = _onlines.indexWhere((ubi) => ubi.key == event.snapshot.key);
+
+    // Verifica si se encontró un índice válido
+    if (index != -1) {
+      // Actualiza el elemento en la lista con los datos del snapshot
+      _onlines[index] = Ubi.fromJson(event.snapshot, json);
+    } else {
+      // Maneja el caso en el que no se encontró ningún elemento con la clave dada
+      print(
+          'No se encontró ningún elemento con la clave ${event.snapshot.key}');
+    }
   }
 
   Future<void> obtenerDatosUsuarios() async {

@@ -8,8 +8,8 @@ import '../controllers/authentication_controller.dart';
 import '../controllers/perfil_controller.dart';
 import '../controllers/ubi_controller.dart';
 import '../widgets/firestore_page.dart';
+import '../widgets/inic_page.dart';
 import '../widgets/perfil_page.dart';
-import '../widgets/user_list_page.dart';
 
 class ContentPage extends StatefulWidget {
   const ContentPage({super.key});
@@ -31,7 +31,7 @@ class _ContentPageState extends State<ContentPage> with WidgetsBindingObserver {
 
   static final List<Widget> _widgets = <Widget>[
     const FireStorePage(),
-    const UserListPage(),
+    const MyHomePage(),
     UserProfileViewPage(),
   ];
 
@@ -114,12 +114,12 @@ class _ContentPageState extends State<ContentPage> with WidgetsBindingObserver {
           index: _selectIndex,
           items: <Widget>[
             Icon(
-              Icons.sports_martial_arts,
+              Icons.chat,
               size: 35,
               color: _selectIndex == 0 ? Colors.black : Colors.white,
             ),
             Icon(
-              Icons.chat,
+              Icons.sports_martial_arts,
               size: 35,
               color: _selectIndex == 1 ? Colors.black : Colors.white,
             ),

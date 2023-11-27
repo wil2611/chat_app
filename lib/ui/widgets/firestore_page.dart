@@ -50,7 +50,7 @@ class _FireStorePageState extends State<FireStorePage> {
         onTap: () {
           Get.to(() => const ChatPage(), arguments: [
             uid,
-            email,
+            name,
           ]);
         },
         leading: const Icon(
