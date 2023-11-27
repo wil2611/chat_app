@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:warriors_of_fate/ui/controllers/ubi_controller.dart';
 import 'signup.dart';
 import '../../controllers/authentication_controller.dart';
 
@@ -9,9 +10,11 @@ class LoginPage extends StatelessWidget {
   final controllerEmail = TextEditingController(text: 'a@a.com');
   final controllerPassword = TextEditingController(text: '123456');
   final AuthenticationController authenticationController = Get.find();
-
+  final UbiController ubiController = Get.find();
   void login(user, password) {
+    ubiController.start();
     authenticationController.login(user, password);
+    ubiController.obtenerDatosUsuarios();
   }
 
   @override

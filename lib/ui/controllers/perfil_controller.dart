@@ -10,6 +10,7 @@ class UserProfileController extends GetxController {
   Rx<User?> user = Rx<User?>(null);
   Rx<Map<String, dynamic>?> userProfileData = Rx<Map<String, dynamic>?>(null);
   Rx<Map<String, dynamic>?> nameFinder = Rx<Map<String, dynamic>?>(null);
+  Rx<Map<String, dynamic>?> locationCheck = Rx<Map<String, dynamic>?>(null);
 
   @override
   void onInit() {
@@ -59,6 +60,25 @@ class UserProfileController extends GetxController {
     } catch (error) {
       debugPrint('Error al obtener información de perfil: $error');
       return 'Error';
+    }
+  }
+
+  Future<void> obtenerLocation(String uid) async {
+// Tu método aquí
+    try {
+      DataSnapshot dataSnapshot =
+          await _databaseRef.child('location').child(uid).get();
+      Map<dynamic, dynamic> userProfileMap =
+          dataSnapshot.value as Map<dynamic, dynamic>;
+      Map<String, dynamic> userProfile =
+          userProfileMap.map((key, value) => MapEntry(key.toString(), value));
+
+      locationCheck.value = userProfile;
+
+      debugPrint(
+          "el usuario $uid esta en linea:${locationCheck.value!['online']}");
+    } catch (error) {
+      debugPrint('Error al obtener información de perfil: $error');
     }
   }
 }

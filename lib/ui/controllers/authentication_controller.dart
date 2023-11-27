@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'user_controller.dart';
@@ -42,6 +43,7 @@ class AuthenticationController extends GetxController {
 
   logout() async {
     try {
+      debugPrint("logout");
       await FirebaseAuth.instance.signOut();
     } catch (e) {
       return Future.error("Logout error");

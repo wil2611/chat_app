@@ -19,7 +19,7 @@ class ContentPage extends StatefulWidget {
   _ContentPageState createState() => _ContentPageState();
 }
 
-class _ContentPageState extends State<ContentPage> {
+class _ContentPageState extends State<ContentPage> with WidgetsBindingObserver {
   int _selectIndex = 0;
   AuthenticationController authenticationController = Get.find();
   UserProfileController userProfileController =
@@ -37,6 +37,13 @@ class _ContentPageState extends State<ContentPage> {
 
   _logout() async {
     try {
+      var online = false;
+      var latitud = 0;
+      var longitud = 0;
+      debugPrint("latitud: $latitud longitud: $longitud online: $online");
+      ubiController.ubi(authenticationController.getUid(), latitud.toString(),
+          longitud.toString(), online.toString());
+      ubiController.stop();
       await authenticationController.logout();
     } catch (e) {
       logError(e);
@@ -54,8 +61,32 @@ class _ContentPageState extends State<ContentPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    if (ubiController.started == false) {
+      ubiController.start();
+    }
+    perfilController.obtenerLocation(authenticationController.getUid());
+    ubiController.obtenerDatosUsuarios();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+    ubiController.stop();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      ubicar();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    ubicar();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF0F0417),
